@@ -1,10 +1,7 @@
-import Navbar from "./navbar";
-
 export default function ProfilePage() {
   return (
-    <>
-      <Navbar />
-      <h1>Profile page</h1>
-    </>
+    <div>
+      <h1 className="text-center">Profile page</h1>
+    </div>
   );
 }
