@@ -4,8 +4,11 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "./navbar";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
+
+const disableNavbar = ["/login", "/register"];
 
 // export const metadata: Metadata = {
 //   title: "Create Next App",
@@ -18,14 +21,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const [state, setState] = useState(0);
+  const pathname = usePathname();
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navbar></Navbar>
-        <h1 className="text-center">layout {state}</h1>
+        {!disableNavbar.includes(pathname) && <Navbar />}
+        {/* <h1 className="text-center">layout {state}</h1>
         <button className="text-center" onClick={() => setState(state + 1)}>
           klik
-        </button>
+        </button> */}
         {children}
       </body>
     </html>
