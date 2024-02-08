@@ -15,6 +15,27 @@ const data = [
       "https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.0/h_411,c_limit/5f362bb6-0812-472c-b554-39013eec513c/air-max-excee-shoes-BND2jb.png",
     price: 200000,
   },
+  {
+    id: 3,
+    title: "Sepatu Nike",
+    image:
+      "https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.0/h_411,c_limit/5f362bb6-0812-472c-b554-39013eec513c/air-max-excee-shoes-BND2jb.png",
+    price: 250000,
+  },
+  {
+    id: 4,
+    title: "Sepatu Nike",
+    image:
+      "https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.0/h_411,c_limit/5f362bb6-0812-472c-b554-39013eec513c/air-max-excee-shoes-BND2jb.png",
+    price: 250000,
+  },
+  {
+    id: 5,
+    title: "Sepatu Nike",
+    image:
+      "https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.0/h_411,c_limit/5f362bb6-0812-472c-b554-39013eec513c/air-max-excee-shoes-BND2jb.png",
+    price: 250000,
+  },
 ];
 
 export async function GET(request: NextRequest) {
