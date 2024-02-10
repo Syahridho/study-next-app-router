@@ -2,11 +2,17 @@
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function LoginPage() {
   const { push } = useRouter();
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleLogin = async (e: any) => {
     e.preventDefault();
+    setError("");
+    setIsLoading(true);
     try {
       const res = await signIn("credentials", {
         redirect: false,
@@ -15,17 +21,25 @@ export default function LoginPage() {
         callbackUrl: "/dashboard",
       });
       if (!res?.error) {
+        e.target.reset();
+        setIsLoading(false);
         push("/dashboard");
       } else {
-        console.log(res.error);
+        setIsLoading(false);
+        if (res.status === 401) {
+          setError("Email or Password is Incorrect");
+        }
       }
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error);
     }
   };
   return (
-    <div className="h-screen flex justify-center items-center">
-      <div className="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm p-4 sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
+    <div className="h-screen flex flex-col justify-center items-center">
+      {error !== "" && (
+        <div className="text-red-600 font-bold mb-5">{error}</div>
+      )}
+      <div className="bg-white shadow-md border border-gray-200 rounded-lg w-96 p-4 sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
         <form className="space-y-6" onSubmit={(e) => handleLogin(e)}>
           <h3 className="text-xl font-medium text-gray-900 dark:text-white">
             Sign in to our platform
@@ -64,10 +78,11 @@ export default function LoginPage() {
           </div>
 
           <button
+            disabled={isLoading}
             type="submit"
             className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
-            Login to your account
+            {isLoading ? "Loading..." : "Login"}
           </button>
           <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
             Not registered?{" "}
