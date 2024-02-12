@@ -4,10 +4,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function LoginPage() {
+export default function LoginPage({ searchParams }: any) {
   const { push } = useRouter();
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const callbackUrl = searchParams.callbackUrl || "/";
 
   const handleLogin = async (e: any) => {
     e.preventDefault();
@@ -18,12 +20,12 @@ export default function LoginPage() {
         redirect: false,
         email: e.target.email.value,
         password: e.target.password.value,
-        callbackUrl: "/dashboard",
+        callbackUrl,
       });
       if (!res?.error) {
         e.target.reset();
         setIsLoading(false);
-        push("/dashboard");
+        push(callbackUrl);
       } else {
         setIsLoading(false);
         if (res.status === 401) {
@@ -83,6 +85,14 @@ export default function LoginPage() {
             className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             {isLoading ? "Loading..." : "Login"}
+          </button>
+          <hr />
+          <button
+            type="button"
+            className="text-center border border-white text-white w-full py-2 rounded transition duration-300 hover:text-gray-900 hover:bg-white"
+            onClick={() => signIn("google", { callbackUrl, redirect: false })}
+          >
+            Login With Google
           </button>
           <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
             Not registered?{" "}
