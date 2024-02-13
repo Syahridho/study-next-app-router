@@ -15,6 +15,7 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
+  // throw new Error("some thing went wrong");
   return (
     <main className="">
       <h1>Hello World</h1>
